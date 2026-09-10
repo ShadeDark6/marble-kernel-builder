@@ -66,7 +66,7 @@ The core idea is separation:
    this repo                          upstream kernel trees
    ─────────                          ─────────────────────
    workflows · scripts                Melt · LineageOS · Evolution-X
-   config    · packaging     ──▶      aosp-pablo · pa-gr
+   config    · packaging     ──▶      aosp-pablo · pa-gr · aospa-shadedark
                                       (cloned clean, patched only in
    never patched in-tree               the ephemeral CI workspace)
 ```
@@ -75,7 +75,7 @@ Root managers and SUSFS are applied **inside the runner's temp workspace** and t
 
 | | Capability |
 |:---:|---|
-| 🧬 | **5 kernel sources** — one dropdown: Melt (HyperOS), LineageOS, Evolution-X, aosp-pablo, pa-gr |
+| 🧬 | **6 kernel sources** — one dropdown: Melt (HyperOS), LineageOS, Evolution-X, aosp-pablo, pa-gr, aospa-shadedark |
 | 🔑 | **4 root managers + baseline** — KernelSU, KernelSU-Next, SukiSU Ultra, ReSukiSU, or clean no-root |
 | 🛡️ | **Optional SUSFS** — pinned `v2.2.0` / `v2.1.0` presets, or a custom ref |
 | ⚙️ | **Selectable LTO** — `none` · `thin` (default) · `full`, hardened for free runners |
@@ -122,9 +122,10 @@ Presets are named after the project that maintains the tree. Selected from the `
 | **`evolution-x`** | [`Evolution-X-Devices/kernel_xiaomi_sm8450`](https://github.com/Evolution-X-Devices/kernel_xiaomi_sm8450) | `cnb` | GKI + fragments | 🟠 **LOS-based** ROMs |
 | **`aosp-pablo`** | [`aosp-pablo/android_kernel_xiaomi_sm8450`](https://github.com/aosp-pablo/android_kernel_xiaomi_sm8450) | `16` | GKI + fragments | 🟠 **LOS-based** ROMs |
 | **`pa-gr`** | [`pa-gr/android_kernel_xiaomi_sm8450`](https://github.com/pa-gr/android_kernel_xiaomi_sm8450) | `vauxite` | GKI + fragments | 🟠 **LOS-based** ROMs |
+| **`aospa-shadedark`** | [`aospa-shadedark/android_kernel_xiaomi_sm8450`](https://github.com/aospa-shadedark/android_kernel_xiaomi_sm8450) | `calcite` | GKI + fragments | 🟠 **LOS-based** ROMs |
 
 > [!WARNING]
-> **ROM family is not interchangeable.** A `melt` build is for **stock HyperOS**. The four LOS-family builds are for **LineageOS-based custom ROMs only**. Flashing across families is the most common way to bootloop this device.
+> **ROM family is not interchangeable.** A `melt` build is for **stock HyperOS**. The five LOS-family builds are for **LineageOS-based custom ROMs only**. Flashing across families is the most common way to bootloop this device.
 
 <details>
 <summary><b>How the two defconfig modes differ</b></summary>
@@ -261,6 +262,7 @@ flowchart LR
 | `build_source_evolution_x` | `false` | Source: Evolution-X (LOS ROMs) |
 | `build_source_aosp_pablo` | `false` | Source: aosp-pablo (LOS ROMs) |
 | `build_source_pa_gr` | `false` | Source: pa-gr (LOS ROMs) |
+| `build_source_aospa_shadedark` | `false` | Source: aospa-shadedark (AOSPA calcite branch) |
 | `build_source_all` | `false` | Build ALL 5 kernel sources at once |
 | `source_ref` | *(empty)* | Override branch/tag/commit (empty = preset defaults) |
 | `build_none` | `false` | Baseline no-root kernel |
@@ -336,7 +338,7 @@ AK3_marble_<FAMILY>_<source>_<manager>[-version][-codeN][_susfs-vX.Y.Z]_rN.zip
            │        │        │                              └ omitted when SUSFS is off
            │        │        └ manager id, or "noroot" for a baseline build
            │        └ preset id
-           └ MELT (melt) or LOS (lineageos · evolution-x · aosp-pablo · pa-gr)
+           └ MELT (melt) or LOS (lineageos · evolution-x · aosp-pablo · pa-gr · aospa-shadedark)
 ```
 
 ```text
@@ -473,6 +475,7 @@ marble-kernel-builder/
 - [Evolution-X SM8450](https://github.com/Evolution-X-Devices/kernel_xiaomi_sm8450)
 - [aosp-pablo SM8450](https://github.com/aosp-pablo/android_kernel_xiaomi_sm8450)
 - [pa-gr SM8450](https://github.com/pa-gr/android_kernel_xiaomi_sm8450)
+- [aospa-shadedark SM8450](https://github.com/aospa-shadedark/android_kernel_xiaomi_sm8450)
 
 **Tooling**
 
@@ -504,7 +507,7 @@ marble-kernel-builder/
 
 This builder is glue. The hard parts belong to other people.
 
-**[osm0sis](https://github.com/osm0sis)** — AnyKernel3 · **[tiann](https://github.com/tiann)** — KernelSU · **[KernelSU-Next team](https://github.com/KernelSU-Next)** · **[pershoot](https://github.com/pershoot)** — the KSU-Next SUSFS path · **[SukiSU Ultra team](https://github.com/SukiSU-Ultra)** · **[ReSukiSU team](https://github.com/ReSukiSU)** · **[simonpunk](https://gitlab.com/simonpunk)** — susfs4ksu · **[sidex15](https://github.com/sidex15)** — SUSFS module · **[WildKernels](https://github.com/WildKernels)** — reference CI, LTO and cache patterns · **Melt, LineageOS, Evolution-X, aosp-pablo and pa-gr maintainers** — the kernel trees · **the marble community** — HyperOS and LOS-family device support.
+**[osm0sis](https://github.com/osm0sis)** — AnyKernel3 · **[tiann](https://github.com/tiann)** — KernelSU · **[KernelSU-Next team](https://github.com/KernelSU-Next)** · **[pershoot](https://github.com/pershoot)** — the KSU-Next SUSFS path · **[SukiSU Ultra team](https://github.com/SukiSU-Ultra)** · **[ReSukiSU team](https://github.com/ReSukiSU)** · **[simonpunk](https://gitlab.com/simonpunk)** — susfs4ksu · **[sidex15](https://github.com/sidex15)** — SUSFS module · **[WildKernels](https://github.com/WildKernels)** — reference CI, LTO and cache patterns · **Melt, LineageOS, Evolution-X, aosp-pablo, pa-gr and aospa-shadedark maintainers** — the kernel trees · **the marble community** — HyperOS and LOS-family device support.
 
 🙏 Thank you to everyone who publishes their work openly.
 

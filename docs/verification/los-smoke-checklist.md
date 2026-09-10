@@ -69,3 +69,26 @@ date:
 result: pass | fail
 notes:
 ```
+
+## aospa-shadedark smoke (optional)
+
+| Input | Value |
+|-------|--------|
+| `kernel_source` | `aospa-shadedark` |
+| default ref | `calcite` (`source_ref` empty) |
+| `toolchain` | `auto` → `llvm-22.1.8` |
+| `lto` | `thin` first; `full` only as experiment (free-runner OOM risk) |
+| `build_kernelsu_next` | `true` |
+| `enable_susfs` | `true` |
+| other managers | `false` |
+
+**Expect ZIP:** `AK3_marble_LOS_aospa-shadedark_ksunext-..._susfs-v2.2.0_rN.zip`
+
+**Risk:** upstream also ships separate `-modules` and `-devicetrees` repos that this builder does not clone or merge in — if a real device build needs those, this single-repo build may be missing drivers/dtbs even if compilation succeeds. Treat first CI run as a smoke test before trusting a boot.
+
+```text
+run: (paste)
+date:
+result: pass | fail
+notes:
+```

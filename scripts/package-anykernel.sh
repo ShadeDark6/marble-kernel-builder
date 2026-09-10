@@ -31,7 +31,7 @@ sanitize_token() {
 }
 
 case "${PACKAGE_FAMILY:-${ROM_FAMILY:-${KERNEL_SOURCE}}}" in
-  LOS|los|lineageos|evolution-x|aosp-pablo|pa-gr) PACKAGE_FAMILY="LOS" ;;
+  LOS|los|lineageos|evolution-x|aosp-pablo|pa-gr|aospa-shadedark) PACKAGE_FAMILY="LOS" ;;
   *) PACKAGE_FAMILY="MELT" ;;
 esac
 source_token="$(sanitize_token "${KERNEL_SOURCE:-melt}")"

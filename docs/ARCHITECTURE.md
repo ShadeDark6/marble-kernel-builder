@@ -98,7 +98,7 @@ Default CI scope is **`image-only`** (kernel `Image` → AnyKernel ZIP).
                 │                            ▼
                 │              ┌──────────────────────────────────┐
                 │              │ Remote kernel source (selected)  │
-                │              │ melt | lineageos | evo-x | aosp-pablo | pa-gr │
+                │              │ melt | lineageos | evo-x | aosp-pablo | pa-gr | aospa-shadedark │
                 │              └──────────────────────────────────┘
                 │                            │
                 ▼                            ▼
@@ -364,10 +364,13 @@ Strategy: `fail-fast: false` so one manager failure does not cancel siblings.
 | `evolution-x` | Evolution-X | `Evolution-X-Devices/kernel_xiaomi_sm8450` | `cnb` | `gki_fragments` | LOS |
 | `aosp-pablo` | aosp-pablo | `aosp-pablo/android_kernel_xiaomi_sm8450` | `16` | `gki_fragments` | LOS |
 | `pa-gr` | pa-gr | `pa-gr/android_kernel_xiaomi_sm8450` | `vauxite` | `gki_fragments` | LOS |
+| `aospa-shadedark` | aospa-shadedark | `aospa-shadedark/android_kernel_xiaomi_sm8450` | `calcite` | `gki_fragments` | LOS |
 
 LOS presets recommend **`llvm-22.1.8`** (armv9 march flags rejected by Android clang-12 / `clang-r416183b`).
 
 **pa-gr note:** default `vauxite` includes an in-tree `KernelSU` submodule / `drivers/kernelsu`. Out-of-tree manager apply may conflict — treat first CI runs as smoke tests.
+
+**aospa-shadedark note:** repo also carries separate `-modules` and `-devicetrees` companion repos upstream; this builder clones only the main kernel repo and does not merge those in. Compiles clean at source with no in-tree patches required.
 
 ### 7.1.1 Source-local patches (optional, removable)
 
@@ -715,7 +718,7 @@ AK3_marble_<FAMILY>_<source>_<manager>[-version][-codeN][_susfs-vX.Y.Z]_rN.zip
 
 | Token | Values |
 |-------|--------|
-| `FAMILY` | `MELT` (`melt`) · `LOS` (lineageos / evolution-x / aosp-pablo / pa-gr) |
+| `FAMILY` | `MELT` (`melt`) · `LOS` (lineageos / evolution-x / aosp-pablo / pa-gr / aospa-shadedark) |
 | `manager` | `noroot` · `kernelsu` · `ksunext` · `sukisu` · `resukisu` |
 | SUSFS off | omit segment |
 | LTO | **not** in zip name (banner + build-info) |

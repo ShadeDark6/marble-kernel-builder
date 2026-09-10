@@ -23,6 +23,7 @@ source_flags = [
     ("evolution-x", os.environ.get("BUILD_SOURCE_EVOLUTION_X", "false")),
     ("aosp-pablo", os.environ.get("BUILD_SOURCE_AOSP_PABLO", "false")),
     ("pa-gr", os.environ.get("BUILD_SOURCE_PA_GR", "false")),
+    ("aospa-shadedark", os.environ.get("BUILD_SOURCE_AOSPA_SHADEDARK", "false")),
 ]
 
 ks_env = os.environ.get("KERNEL_SOURCE", "").strip()

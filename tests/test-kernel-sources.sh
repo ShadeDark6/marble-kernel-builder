@@ -38,7 +38,8 @@ for preset_repo in \
   "lineageos|LineageOS/android_kernel_xiaomi_sm8450|lineage-23.2|LineageOS" \
   "evolution-x|Evolution-X-Devices/kernel_xiaomi_sm8450|cnb|Evolution-X" \
   "aosp-pablo|aosp-pablo/android_kernel_xiaomi_sm8450|16|aosp-pablo" \
-  "pa-gr|pa-gr/android_kernel_xiaomi_sm8450|vauxite|pa-gr"
+  "pa-gr|pa-gr/android_kernel_xiaomi_sm8450|vauxite|pa-gr" \
+  "aospa-shadedark|aospa-shadedark/android_kernel_xiaomi_sm8450|calcite|aospa-shadedark"
 do
   IFS='|' read -r preset repo ref author <<<"${preset_repo}"
   out="$(
@@ -109,5 +110,10 @@ assert_name \
   MANAGER=kernelsu-next ENABLE_SUSFS=true \
   manager_build_version_name='v3.2.0' manager_build_version_code=33203 \
   susfs_reported_version=v2.2.0
+
+assert_name \
+  'AK3_marble_LOS_aospa-shadedark_noroot_r9.zip' \
+  KERNEL_SOURCE=aospa-shadedark ROM_FAMILY=los \
+  MANAGER=none ENABLE_SUSFS=false
 
 echo "Kernel source preset tests passed"

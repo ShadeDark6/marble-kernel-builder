@@ -54,7 +54,7 @@ import json
 import sys
 data = json.loads(sys.argv[1])
 sources = [item["kernel_source"] for item in data["include"]]
-assert sources == ["melt", "lineageos", "evolution-x", "aosp-pablo", "pa-gr"]
+assert sources == ["melt", "lineageos", "evolution-x", "aosp-pablo", "pa-gr", "aospa-shadedark"]
 PY
 if BUILD_KERNELSU=true ENABLE_SUSFS=true GITHUB_OUTPUT=/dev/null \
   bash scripts/generate-build-matrix.sh >/dev/null 2>&1; then
